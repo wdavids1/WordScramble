@@ -27,6 +27,9 @@ public class Controller {
     public void startGame() {
         Word retrievedWord = new Word();
         this.theWord = retrievedWord.getWord();
+
+        Game theGame = new Game();
+        this.theWordScrambled = theGame.scrambleWord(theWord);
     }
 
     /**
@@ -50,5 +53,14 @@ public class Controller {
      */
     public String getTheWord() {
         return this.theWord;
+    }
+
+    /**
+     * Gets the word after it has been scrambled
+     *
+     * @return  The scrambled word
+     */
+    public String getTheWordScrambled() {
+        return this.theWordScrambled;
     }
 }

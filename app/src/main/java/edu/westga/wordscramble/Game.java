@@ -1,5 +1,9 @@
 package edu.westga.wordscramble;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
 /**
  * Created by Wayne on 3/13/2016.
  *
@@ -14,9 +18,24 @@ public class Game {
 
     }
 
+    /**
+     * Shuffle the letters of the word and then rebuild into a new string
+     *
+     * @param theWord   The word to shuffle
+     * @return          The shuffled word
+     */
     public String scrambleWord(String theWord) {
 
-        return "";
+        List<Character> wordAsArray = new ArrayList<>();
+        for(char letter :  theWord.toCharArray())
+            wordAsArray.add(letter);
+        Collections.shuffle(wordAsArray);
+
+        StringBuilder scrambledWord = new StringBuilder();
+        for(char letter : wordAsArray)
+            scrambledWord.append(letter);
+
+        return scrambledWord.toString();
     }
 
     /**
