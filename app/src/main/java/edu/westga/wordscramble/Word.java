@@ -5,9 +5,11 @@ import java.util.Random;
 
 /**
  * Created by Wayne on 3/13/2016.
+ *
+ * This class provides a random word for the player to guess
  */
 public class Word {
-    private ArrayList<String> theList = new ArrayList<String>();
+    private ArrayList<String> theList = new ArrayList<>();
     private Random theRandom = new Random();
 
     /**
