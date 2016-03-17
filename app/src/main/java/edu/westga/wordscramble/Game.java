@@ -25,6 +25,9 @@ public class Game {
      * @return          The shuffled word
      */
     public String scrambleWord(String theWord) {
+        if (theWord == null || theWord.isEmpty()) {
+            return "";
+        }
 
         List<Character> wordAsArray = new ArrayList<>();
         for(char letter :  theWord.toCharArray())
@@ -35,6 +38,9 @@ public class Game {
         for(char letter : wordAsArray)
             scrambledWord.append(letter);
 
+        if (theWord.equals(scrambledWord.toString())) {
+            return scrambleWord(theWord);
+        }
         return scrambledWord.toString();
     }
 
@@ -46,6 +52,7 @@ public class Game {
      *                              False if theWord DOES NOT equal the suggestedSolution
      */
     public boolean checkCorrect(String theWord, String suggestedSolution) {
-        return theWord.equalsIgnoreCase(suggestedSolution);
+        return !(theWord == null || theWord.isEmpty() || suggestedSolution == null || suggestedSolution.isEmpty())
+                && theWord.equalsIgnoreCase(suggestedSolution);
     }
 }

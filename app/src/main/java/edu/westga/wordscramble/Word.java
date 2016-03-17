@@ -10,6 +10,7 @@ import java.util.Random;
  */
 public class Word {
     private ArrayList<String> theList = new ArrayList<>();
+    private ArrayList<String> previousWords = new ArrayList<>();
     private Random theRandom = new Random();
 
     /**
@@ -37,7 +38,21 @@ public class Word {
     public String getWord() {
         String theWord;
 
-        return theList.get(theRandom.nextInt(theList.size()));
+        theWord = theList.get(theRandom.nextInt(theList.size()));
+
+        for(int count = 0; count < previousWords.size(); count++) {
+            if (previousWords.get(count).equals(theWord)) {
+                return getWord();
+            }
+        }
+
+        previousWords.add(theWord);
+
+        if (previousWords.size() > 5) {
+            previousWords.remove(0);
+        }
+
+        return theWord;
     }
 
     /**

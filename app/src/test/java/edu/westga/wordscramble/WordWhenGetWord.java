@@ -6,10 +6,13 @@ import static org.junit.Assert.assertEquals;
 
 /**
  * Created by Wayne on 3/13/2016.
+ *
+ * Test class to test the functionality of the getWord method
  */
 public class WordWhenGetWord {
     /**
      * Test to verify that the list is populated with words
+     * the known length of the list is 24
      * @throws Exception
      */
     @Test
@@ -20,6 +23,7 @@ public class WordWhenGetWord {
 
     /**
      * Test to verify that no errors such as out of range are encountered
+     *
      * @throws Exception
      */
     @Test
@@ -41,7 +45,6 @@ public class WordWhenGetWord {
 
     /**
      * Test to check for sequential selection of the same word from the list
-     * Since were doing 1000 calls 60 is allowed as the delta which is 6%
      *
      * @throws Exception
      */
@@ -51,7 +54,7 @@ public class WordWhenGetWord {
         int count = 0;
 
         String previousWord = "";
-        String currentWord = "";
+        String currentWord;
         for (int i=0; i<1000; i++) {
             currentWord = aWord.getWord();
             if (currentWord.equals(previousWord)) {
@@ -61,7 +64,7 @@ public class WordWhenGetWord {
             previousWord = currentWord;
         }
 
-        assertEquals(0, count, 60);
+        assertEquals(0, count);
     }
 
     /**
@@ -76,7 +79,7 @@ public class WordWhenGetWord {
         Word aWord = new Word();
         Boolean beginReturned = false;
 
-        String currentWord = "";
+        String currentWord;
         for (int i=0; i<1000; i++) {
             currentWord = aWord.getWord();
             if (currentWord.equals("begin")) {
@@ -99,7 +102,7 @@ public class WordWhenGetWord {
         Word aWord = new Word();
         Boolean randomReturned = false;
 
-        String currentWord = "";
+        String currentWord;
         for (int i=0; i<1000; i++) {
             currentWord = aWord.getWord();
             if (currentWord.equals("random")) {

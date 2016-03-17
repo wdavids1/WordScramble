@@ -51,4 +51,24 @@ public class GameWhenCheckSolution {
 
         assertEquals(false, theGame.checkCorrect("begin",""));
     }
+
+    /**
+     * Test to verify that an empty string by the game will return false
+     */
+    @Test
+    public void shouldReturnFalseForEmptyWord() {
+        Game theGame = new Game();
+
+        assertEquals(false, theGame.checkCorrect("","end"));
+    }
+
+    /**
+     * Test to verify that a null string will return false
+     */
+    @Test
+    public void shouldReturnFalseForNull() {
+        Game theGame = new Game();
+
+        assertEquals(false, theGame.checkCorrect(null,null));
+    }
 }

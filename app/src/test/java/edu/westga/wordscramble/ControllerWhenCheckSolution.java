@@ -55,4 +55,26 @@ public class ControllerWhenCheckSolution {
 
         assertEquals(false, theController.checkSolution(""));
     }
+
+    /**
+     * Test to verify that an empty string by the game will return false
+     */
+    @Test
+    public void shouldReturnFalseForEmptyTheWord() {
+        Controller theController = new Controller();
+        theController.setTheWord("");
+
+        assertEquals(false, theController.checkSolution("end"));
+    }
+
+    /**
+     * Test to verify that a null string will return false
+     */
+    @Test
+    public void shouldReturnFalseForNull() {
+        Controller theController = new Controller();
+        theController.setTheWord(null);
+
+        assertEquals(false, theController.checkSolution(null));
+    }
 }

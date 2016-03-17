@@ -13,9 +13,6 @@ public class GameWhenScrambleWord {
 
     /**
      * Test to verify the original word is not returned
-     *
-     * Since it may occur that the shuffle doesn't result in a change a
-     * 5% margin of error is allowed
      */
     @Test
     public void shouldReturn0ForTheWordsMatching() {
@@ -23,13 +20,32 @@ public class GameWhenScrambleWord {
         String tempWord;
         int count = 0;
 
-        for (int i=0; i<100; i++) {
+        for (int i=0; i<1000; i++) {
             tempWord = theGame.scrambleWord("begin");
             if (tempWord.equals("begin")) {
                 count++;
             }
         }
 
-        assertEquals(0, count, 5);
+        assertEquals(0, count);
+    }
+
+    /**
+     * Test to verify that an empty param will not crash app
+     */
+    @Test
+    public void shouldNotDie() {
+        Game theGame = new Game();
+        String tempWord;
+        int count = 0;
+
+        for (int i=0; i<1000; i++) {
+            tempWord = theGame.scrambleWord("");
+            if (tempWord.equals("begin")) {
+                count++;
+            }
+        }
+
+        assertEquals(0, count);
     }
 }
