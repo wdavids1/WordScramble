@@ -33,6 +33,24 @@ public class Controller {
     }
 
     /**
+     * Starts the game by:
+     *      retrieving a word
+     *      setting variable theWord to retrieved word
+     *      scrambling theWord
+     *      setting variable theWordScrambled to the scrambled version
+     *
+     * @param numberOfLetters   The number of letters the word should have
+     *                          uses the default list if value != 5 || 6
+     */
+    public void startGame(int numberOfLetters) {
+        Word retrievedWord = new Word();
+        this.theWord = retrievedWord.getWord();
+
+        Game theGame = new Game();
+        this.theWordScrambled = theGame.scrambleWord(theWord);
+    }
+
+    /**
      * Checks the value of theWord with the value suggested by the player
      */
     public boolean checkSolution(String suggestedSolution) {

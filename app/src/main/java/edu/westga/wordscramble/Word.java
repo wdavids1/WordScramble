@@ -1,5 +1,6 @@
 package edu.westga.wordscramble;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -11,6 +12,8 @@ import java.util.Random;
 public class Word {
     private ArrayList<String> theList = new ArrayList<>();
     private ArrayList<String> previousWords = new ArrayList<>();
+    private ArrayList<String> tempList = new ArrayList<>();
+    private int wordLength = 0;
     private Random theRandom = new Random();
 
     /**
@@ -30,6 +33,15 @@ public class Word {
     }
 
     /**
+     * In place for testing to ensure that the list is populated
+     *
+     * @return  The number of words in the list
+     */
+    public int theTempListSize() {
+        return tempList.size();
+    }
+
+    /**
      * Uses a random number within the size of the list to return a word
      * Should include both the first and last words of the list
      *
@@ -43,6 +55,41 @@ public class Word {
         for(int count = 0; count < previousWords.size(); count++) {
             if (previousWords.get(count).equals(theWord)) {
                 return getWord();
+            }
+        }
+
+        previousWords.add(theWord);
+
+        if (previousWords.size() > 5) {
+            previousWords.remove(0);
+        }
+
+        return theWord;
+    }
+
+    /**
+     * Uses a random number within the size of the list to return a word
+     * Should include both the first and last words of the list
+     *
+     * @return A word randomly selected from the list
+     */
+    public String getWord(int wordLength) {
+        if (wordLength != 0 && this.wordLength != wordLength) {
+            this.makeTempList(wordLength, this.theList);
+        }
+
+        if (this.tempList.size() == 0) {
+            this.tempList = theList;
+        }
+        this.wordLength = wordLength;
+
+        String theWord;
+
+        theWord = tempList.get(theRandom.nextInt(tempList.size()));
+
+        for(int count = 0; count < previousWords.size(); count++) {
+            if (previousWords.get(count).equals(theWord)) {
+                return getWord(wordLength);
             }
         }
 
@@ -83,5 +130,18 @@ public class Word {
         theList.add("rancor");
         theList.add("randan");
         theList.add("random");
+    }
+
+    /**
+     * Helper class to populate tempList with words
+     */
+    private void makeTempList(int wordLength, ArrayList<String> aList) {
+
+        for(int count = 0; count < aList.size(); count++) {
+            if (aList.get(count).length() == wordLength) {
+                tempList.add(aList.get(count));
+            }
+        }
+
     }
 }
