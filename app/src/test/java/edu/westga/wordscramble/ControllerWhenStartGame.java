@@ -2,6 +2,8 @@ package edu.westga.wordscramble;
 
 import org.junit.Test;
 
+import java.util.List;
+
 import static org.junit.Assert.assertEquals;
 
 /**
@@ -23,11 +25,48 @@ public class ControllerWhenStartGame {
         assertEquals(true, theController.getTheWord().length() > 1);
     }
 
+    /*
+     * Test to check that a word of length 5 is returned
+     */
+    @Test
+    public void ControllerShouldGetAWordSize5() {
+        Controller theController = new Controller();
+        theController.startGame(5);
+        assertEquals(5, theController.getTheWord().length());
+    }
+
+    /*
+     * Test to check that a word of length 5 is returned
+     */
+    @Test
+    public void ControllerShouldGetAWordSize6() {
+        Controller theController = new Controller();
+        theController.startGame(6);
+        assertEquals(6, theController.getTheWord().length());
+    }
+
+    /*
+     * Test to check that a word of length 5 is returned
+     */
+    @Test
+    public void ControllerShouldGetAWordSize5FromURL() {
+        Controller theController = new Controller();
+        theController.startGame(5, null);
+        assertEquals(5, theController.getTheWord().length());
+    }
+
+    /*
+     * Test to check that a word of length 5 is returned
+     */
+    @Test
+    public void ControllerShouldGetAWordSize6FromURL() {
+        Controller theController = new Controller();
+        theController.startGame(6, "");
+        assertEquals(6, theController.getTheWord().length());
+    }
+
     /**
      * Test to verify the original word is not returned when a new game is started
-     *
-     * Since it may occur that the shuffle doesn't result in a change a
-     * 5% margin of error is allowed
      */
     @Test
     public void shouldReturn0ForTheWordsMatching() {
@@ -39,13 +78,17 @@ public class ControllerWhenStartGame {
             theController.startGame();
 
             String theWord = theController.getTheWord();
-            String tempWord = theController.getTheWordScrambled();
+            List<Character> wordAsArray= theController.getTheWordScrambled();
 
-            if (tempWord.equals(theWord)) {
+            StringBuilder scrambledWord = new StringBuilder();
+            for(char letter : wordAsArray)
+                scrambledWord.append(letter);
+
+            if (scrambledWord.toString().equals(theWord)) {
                 count++;
             }
         }
 
-        assertEquals(0, count, 5);
+        assertEquals(0, count);
     }
 }

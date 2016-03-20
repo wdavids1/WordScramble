@@ -1,5 +1,9 @@
 package edu.westga.wordscramble;
 
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.util.List;
+
 /**
  * Created by Wayne on 3/13/2016.
  *
@@ -7,8 +11,10 @@ package edu.westga.wordscramble;
  */
 public class Controller {
     private String theWord;
-    private String theWordScrambled;
+    private List<Character> theWordScrambled;
     private Game theGame;
+    private URL url;
+    private final String DEFAULTURL = "http://www-01.sil.org/linguistics/wordlists/english/wordlist/wordsEn.txt";
 
     /**
      * Initialize the controller
@@ -44,7 +50,39 @@ public class Controller {
      */
     public void startGame(int numberOfLetters) {
         Word retrievedWord = new Word();
-        this.theWord = retrievedWord.getWord();
+        this.theWord = retrievedWord.getWord(numberOfLetters);
+
+        Game theGame = new Game();
+        this.theWordScrambled = theGame.scrambleWord(theWord);
+    }
+
+    /**
+     * Starts the game by:
+     *      retrieving a word list from remote URL
+     *      retrieving a word
+     *      setting variable theWord to retrieved word
+     *      scrambling theWord
+     *      setting variable theWordScrambled to the scrambled version
+     *
+     * @param numberOfLetters   The number of letters the word should have
+     *                          uses the default list if value != 5 || 6
+     * @param url               The url to get the list from
+     *                          if empty or null uses default
+     *                          for other errors starts the game without URL data
+     */
+    public void startGame(int numberOfLetters, String url) {
+        if ((url == null) || url.isEmpty()) {
+            url = DEFAULTURL;
+        }
+
+        try {
+            this.url = new URL(url);
+        } catch (MalformedURLException e) {
+            startGame(numberOfLetters);
+        }
+
+        Word retrievedWord = new Word();
+        this.theWord = retrievedWord.getWord(numberOfLetters, this.url);
 
         Game theGame = new Game();
         this.theWordScrambled = theGame.scrambleWord(theWord);
@@ -78,7 +116,7 @@ public class Controller {
      *
      * @return  The scrambled word
      */
-    public String getTheWordScrambled() {
+    public List<Character> getTheWordScrambled() {
         return this.theWordScrambled;
     }
 }

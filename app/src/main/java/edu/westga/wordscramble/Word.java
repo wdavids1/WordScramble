@@ -1,6 +1,7 @@
 package edu.westga.wordscramble;
 
 import java.lang.reflect.Array;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -15,6 +16,7 @@ public class Word {
     private ArrayList<String> tempList = new ArrayList<>();
     private int wordLength = 0;
     private Random theRandom = new Random();
+    private URL url;
 
     /**
      * Initializes the list
@@ -103,6 +105,42 @@ public class Word {
     }
 
     /**
+     * Uses a random number within the size of the list to return a word
+     * Should include both the first and last words of the list
+     *
+     * @return A word randomly selected from the list
+     */
+    public String getWord(int wordLength, URL url) {
+        if (wordLength != 0 && this.wordLength != wordLength && this.url != url) {
+            ReadWordsFromURL theWordList = new ReadWordsFromURL();
+            this.makeTempList(wordLength, theWordList.getWordListFromURL(url));
+        }
+
+        if (this.tempList.size() == 0) {
+            this.tempList = theList;
+        }
+        this.wordLength = wordLength;
+
+        String theWord;
+
+        theWord = tempList.get(theRandom.nextInt(tempList.size()));
+
+        for(int count = 0; count < previousWords.size(); count++) {
+            if (previousWords.get(count).equals(theWord)) {
+                return getWord(wordLength);
+            }
+        }
+
+        previousWords.add(theWord);
+
+        if (previousWords.size() > 5) {
+            previousWords.remove(0);
+        }
+
+        return theWord;
+    }
+
+    /**
      * Helper class to populate the list of words
      */
     private void makeTheList() {
@@ -143,5 +181,9 @@ public class Word {
             }
         }
 
+    }
+
+    private void setURL(URL url) {
+        this.url = url;
     }
 }

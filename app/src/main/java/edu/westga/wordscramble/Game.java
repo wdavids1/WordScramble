@@ -24,9 +24,9 @@ public class Game {
      * @param theWord   The word to shuffle
      * @return          The shuffled word
      */
-    public String scrambleWord(String theWord) {
+    public List<Character> scrambleWord(String theWord) {
         if (theWord == null || theWord.isEmpty()) {
-            return "";
+            return Collections.emptyList();
         }
 
         List<Character> wordAsArray = new ArrayList<>();
@@ -41,7 +41,7 @@ public class Game {
         if (theWord.equals(scrambledWord.toString())) {
             return scrambleWord(theWord);
         }
-        return scrambledWord.toString();
+        return wordAsArray;
     }
 
     /**
