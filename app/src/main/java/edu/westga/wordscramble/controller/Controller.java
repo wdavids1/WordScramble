@@ -1,8 +1,11 @@
-package edu.westga.wordscramble;
+package edu.westga.wordscramble.controller;
 
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.List;
+
+import edu.westga.wordscramble.model.Game;
+import edu.westga.wordscramble.model.Word;
 
 /**
  * Created by Wayne on 3/13/2016.

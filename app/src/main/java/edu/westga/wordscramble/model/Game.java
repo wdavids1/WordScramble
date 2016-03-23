@@ -1,4 +1,4 @@
-package edu.westga.wordscramble;
+package edu.westga.wordscramble.model;
 
 import java.util.ArrayList;
 import java.util.Collections;

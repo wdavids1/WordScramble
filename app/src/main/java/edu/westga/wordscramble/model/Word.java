@@ -1,6 +1,5 @@
-package edu.westga.wordscramble;
+package edu.westga.wordscramble.model;
 
-import java.lang.reflect.Array;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Random;

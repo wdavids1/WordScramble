@@ -1,4 +1,4 @@
-package edu.westga.wordscramble;
+package edu.westga.wordscramble.model;
 
 import java.io.BufferedReader;
 import java.io.IOException;
