@@ -5,6 +5,8 @@ import org.junit.Test;
 import java.util.ArrayList;
 import java.util.List;
 
+import edu.westga.wordscramble.model.Game;
+
 import static org.junit.Assert.assertEquals;
 
 /**
@@ -19,7 +21,7 @@ public class GameWhenScrambleWord {
      */
     @Test
     public void shouldReturn0ForTheWordsMatching() {
-        Game theGame = new Game();
+        Game theGame = new Game(5,60);
         List<Character> tempWord;
         String theWord = "begin";
 
@@ -46,7 +48,7 @@ public class GameWhenScrambleWord {
      */
     @Test
     public void shouldNotDie() {
-        Game theGame = new Game();
+        Game theGame = new Game(5,60);
         List<Character> tempWord;
         String theWord = "";
 
@@ -73,7 +75,7 @@ public class GameWhenScrambleWord {
      */
     @Test
     public void shouldNotDieWithNull() {
-        Game theGame = new Game();
+        Game theGame = new Game(5,60);
         List<Character> tempWord;
 
         int count = 0;

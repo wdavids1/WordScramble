@@ -1,4 +1,16 @@
 <resources>
     <string name="app_name">Word Scramble</string>
     <string name="action_settings">Word Scramble</string>
+    <string name="CheckAnswer">Check Answer</string>
+    <string name="Reset">Reset</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="wordLengthText">Choose your word length:</string>
+    <string name="speedText">Choose your speed:</string>
+    <string name="radioButtonSix">6 Letters</string>
+    <string name="radioButtonFive">5 Letters</string>
+    <string name="radioButtonSixty">60 seconds</string>
+    <string name="radioButtonNinety">90 seconds</string>
+    <string name="launchButton">Launch Game</string>
 </resources>

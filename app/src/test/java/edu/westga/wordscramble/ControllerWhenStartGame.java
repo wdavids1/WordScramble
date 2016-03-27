@@ -4,6 +4,8 @@ import org.junit.Test;
 
 import java.util.List;
 
+import edu.westga.wordscramble.controller.Controller;
+
 import static org.junit.Assert.assertEquals;
 
 /**
@@ -15,23 +17,12 @@ import static org.junit.Assert.assertEquals;
 public class ControllerWhenStartGame {
 
     /*
-     * Test to check that a string of length greater than 1 is
-     * set for the variable theWord
-     */
-    @Test
-    public void ControllerShouldGetAWord() {
-        Controller theController = new Controller();
-        theController.startGame();
-        assertEquals(true, theController.getTheWord().length() > 1);
-    }
-
-    /*
      * Test to check that a word of length 5 is returned
      */
     @Test
     public void ControllerShouldGetAWordSize5() {
         Controller theController = new Controller();
-        theController.startGame(5);
+        theController.startGame(5,60);
         assertEquals(5, theController.getTheWord().length());
     }
 
@@ -41,7 +32,7 @@ public class ControllerWhenStartGame {
     @Test
     public void ControllerShouldGetAWordSize6() {
         Controller theController = new Controller();
-        theController.startGame(6);
+        theController.startGame(6,90);
         assertEquals(6, theController.getTheWord().length());
     }
 
@@ -51,7 +42,7 @@ public class ControllerWhenStartGame {
     @Test
     public void ControllerShouldGetAWordSize5FromURL() {
         Controller theController = new Controller();
-        theController.startGame(5, null);
+        theController.startGame(null,5,90);
         assertEquals(5, theController.getTheWord().length());
     }
 
@@ -61,7 +52,7 @@ public class ControllerWhenStartGame {
     @Test
     public void ControllerShouldGetAWordSize6FromURL() {
         Controller theController = new Controller();
-        theController.startGame(6, "");
+        theController.startGame("",6,60);
         assertEquals(6, theController.getTheWord().length());
     }
 
@@ -75,7 +66,7 @@ public class ControllerWhenStartGame {
         int count = 0;
 
         for (int i=0; i<100; i++) {
-            theController.startGame();
+            theController.startGame(5,60);
 
             String theWord = theController.getTheWord();
             List<Character> wordAsArray= theController.getTheWordScrambled();

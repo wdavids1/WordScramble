@@ -2,6 +2,8 @@ package edu.westga.wordscramble;
 
 import org.junit.Test;
 
+import edu.westga.wordscramble.model.Game;
+
 import static org.junit.Assert.assertEquals;
 
 /**
@@ -17,7 +19,7 @@ public class GameWhenCheckSolution {
      */
     @Test
     public void shouldReturnTrueForIdenticalWords() {
-        Game theGame = new Game();
+        Game theGame = new Game(5,60);
 
         assertEquals(true, theGame.checkCorrect("begin","begin"));
     }
@@ -27,7 +29,7 @@ public class GameWhenCheckSolution {
      */
     @Test
     public void shouldReturnFalseForDifferentWords() {
-        Game theGame = new Game();
+        Game theGame = new Game(5,60);
 
         assertEquals(false, theGame.checkCorrect("begin","end"));
     }
@@ -37,7 +39,7 @@ public class GameWhenCheckSolution {
      */
     @Test
     public void shouldReturnTrueForDifferentCaseWords() {
-        Game theGame = new Game();
+        Game theGame = new Game(5,60);
 
         assertEquals(true, theGame.checkCorrect("begin","BEGIN"));
     }
@@ -47,7 +49,7 @@ public class GameWhenCheckSolution {
      */
     @Test
     public void shouldReturnFalseForEmptySuggestion() {
-        Game theGame = new Game();
+        Game theGame = new Game(5,60);
 
         assertEquals(false, theGame.checkCorrect("begin",""));
     }
@@ -57,7 +59,7 @@ public class GameWhenCheckSolution {
      */
     @Test
     public void shouldReturnFalseForEmptyWord() {
-        Game theGame = new Game();
+        Game theGame = new Game(5,60);
 
         assertEquals(false, theGame.checkCorrect("","end"));
     }
@@ -67,7 +69,7 @@ public class GameWhenCheckSolution {
      */
     @Test
     public void shouldReturnFalseForNull() {
-        Game theGame = new Game();
+        Game theGame = new Game(5,60);
 
         assertEquals(false, theGame.checkCorrect(null,null));
     }

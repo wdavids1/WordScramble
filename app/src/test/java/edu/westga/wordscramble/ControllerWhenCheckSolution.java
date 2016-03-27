@@ -2,6 +2,8 @@ package edu.westga.wordscramble;
 
 import org.junit.Test;
 
+import edu.westga.wordscramble.controller.Controller;
+
 import static org.junit.Assert.assertEquals;
 
 /**

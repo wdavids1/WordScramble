@@ -5,8 +5,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    tools:context="edu.westga.wordscramble.MainActivity">
+    tools:context="edu.westga.wordscramble.MainActivity"
+    >
 
-    <include layout="@layout/content_main" />
+    <include layout="@layout/game_menu" />
 
 </android.support.design.widget.CoordinatorLayout>

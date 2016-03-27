@@ -5,6 +5,9 @@ import org.junit.Test;
 import java.net.MalformedURLException;
 import java.net.URL;
 
+import edu.westga.wordscramble.model.ReadWordsFromURL;
+import edu.westga.wordscramble.model.Word;
+
 import static org.junit.Assert.assertEquals;
 
 /**
