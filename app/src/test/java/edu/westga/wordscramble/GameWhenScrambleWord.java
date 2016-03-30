@@ -2,7 +2,6 @@ package edu.westga.wordscramble;
 
 import org.junit.Test;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import edu.westga.wordscramble.model.Game;
@@ -21,7 +20,7 @@ public class GameWhenScrambleWord {
      */
     @Test
     public void shouldReturn0ForTheWordsMatching() {
-        Game theGame = new Game(5,60);
+        Game theGame = new Game();
         List<Character> tempWord;
         String theWord = "begin";
 
@@ -48,7 +47,7 @@ public class GameWhenScrambleWord {
      */
     @Test
     public void shouldNotDie() {
-        Game theGame = new Game(5,60);
+        Game theGame = new Game();
         List<Character> tempWord;
         String theWord = "";
 
@@ -75,7 +74,7 @@ public class GameWhenScrambleWord {
      */
     @Test
     public void shouldNotDieWithNull() {
-        Game theGame = new Game(5,60);
+        Game theGame = new Game();
         List<Character> tempWord;
 
         int count = 0;

@@ -2,8 +2,6 @@ package edu.westga.wordscramble.model;
 
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
 import java.util.Random;
 
 /**
@@ -18,7 +16,6 @@ public class Word {
     private int wordLength = 0;
     private Random theRandom = new Random();
     private URL url;
-    private String theWord;;
 
     /**
      * Initializes the list
@@ -52,22 +49,23 @@ public class Word {
      * @return A word randomly selected from the list
      */
     public String getWord() {
+        String theWord;
 
-        this.theWord = this.theList.get(this.theRandom.nextInt(this.theList.size()));
+        theWord = theList.get(theRandom.nextInt(theList.size()));
 
-        for(int count = 0; count < this.previousWords.size(); count++) {
-            if (this.previousWords.get(count).equals(this.theWord)) {
+        for(int count = 0; count < previousWords.size(); count++) {
+            if (previousWords.get(count).equals(theWord)) {
                 return getWord();
             }
         }
 
-        this.previousWords.add(this.theWord);
+        previousWords.add(theWord);
 
-        if (this.previousWords.size() > 5) {
-            this.previousWords.remove(0);
+        if (previousWords.size() > 5) {
+            previousWords.remove(0);
         }
 
-        return this.theWord;
+        return theWord;
     }
 
     /**
@@ -76,7 +74,7 @@ public class Word {
      *
      * @return A word randomly selected from the list
      */
-    public void getWord(int wordLength) {
+    public String getWord(int wordLength) {
         if (wordLength != 0 && this.wordLength != wordLength) {
             this.makeTempList(wordLength, this.theList);
         }
@@ -86,21 +84,23 @@ public class Word {
         }
         this.wordLength = wordLength;
 
+        String theWord;
 
-        this.theWord = this.tempList.get(this.theRandom.nextInt(this.tempList.size()));
+        theWord = tempList.get(theRandom.nextInt(tempList.size()));
 
-        for(int count = 0; count < this.previousWords.size(); count++) {
-            if (this.previousWords.get(count).equals(this.theWord)) {
-                getWord(wordLength);
+        for(int count = 0; count < previousWords.size(); count++) {
+            if (previousWords.get(count).equals(theWord)) {
+                return getWord(wordLength);
             }
         }
 
-        this.previousWords.add(this.theWord);
+        previousWords.add(theWord);
 
-        if (this.previousWords.size() > 5) {
-            this.previousWords.remove(0);
+        if (previousWords.size() > 5) {
+            previousWords.remove(0);
         }
 
+        return theWord;
     }
 
     /**
@@ -109,7 +109,7 @@ public class Word {
      *
      * @return A word randomly selected from the list
      */
-    public void getWord(int wordLength, URL url) {
+    public String getWord(int wordLength, URL url) {
         if (wordLength != 0 && this.wordLength != wordLength && this.url != url) {
             ReadWordsFromURL theWordList = new ReadWordsFromURL();
             this.makeTempList(wordLength, theWordList.getWordListFromURL(url));
@@ -120,51 +120,53 @@ public class Word {
         }
         this.wordLength = wordLength;
 
+        String theWord;
 
-        this.theWord = this.tempList.get(this.theRandom.nextInt(this.tempList.size()));
+        theWord = tempList.get(theRandom.nextInt(tempList.size()));
 
-        for(int count = 0; count < this.previousWords.size(); count++) {
-            if (this.previousWords.get(count).equals(this.theWord)) {
-                getWord(wordLength);
+        for(int count = 0; count < previousWords.size(); count++) {
+            if (previousWords.get(count).equals(theWord)) {
+                return getWord(wordLength);
             }
         }
 
-        this.previousWords.add(this.theWord);
+        previousWords.add(theWord);
 
-        if (this.previousWords.size() > 5) {
-            this.previousWords.remove(0);
+        if (previousWords.size() > 5) {
+            previousWords.remove(0);
         }
 
+        return theWord;
     }
 
     /**
      * Helper class to populate the list of words
      */
     private void makeTheList() {
-        this.theList.add("begin");
-        this.theList.add("zappy");
-        this.theList.add("jimmy");
-        this.theList.add("jimpy");
-        this.theList.add("jiffy");
-        this.theList.add("zippy");
-        this.theList.add("jemmy");
-        this.theList.add("quick");
-        this.theList.add("jammy");
-        this.theList.add("quack");
-        this.theList.add("junky");
-        this.theList.add("gazabo");
-        this.theList.add("gazars");
-        this.theList.add("gazebo");
-        this.theList.add("gazers");
-        this.theList.add("gazing");
-        this.theList.add("maglev");
-        this.theList.add("magmas");
-        this.theList.add("magnet");
-        this.theList.add("rancho");
-        this.theList.add("rancid");
-        this.theList.add("rancor");
-        this.theList.add("randan");
-        this.theList.add("random");
+        theList.add("begin");
+        theList.add("zappy");
+        theList.add("jimmy");
+        theList.add("jimpy");
+        theList.add("jiffy");
+        theList.add("zippy");
+        theList.add("jemmy");
+        theList.add("quick");
+        theList.add("jammy");
+        theList.add("quack");
+        theList.add("junky");
+        theList.add("gazabo");
+        theList.add("gazars");
+        theList.add("gazebo");
+        theList.add("gazers");
+        theList.add("gazing");
+        theList.add("maglev");
+        theList.add("magmas");
+        theList.add("magnet");
+        theList.add("rancho");
+        theList.add("rancid");
+        theList.add("rancor");
+        theList.add("randan");
+        theList.add("random");
     }
 
     /**
@@ -174,7 +176,7 @@ public class Word {
 
         for(int count = 0; count < aList.size(); count++) {
             if (aList.get(count).length() == wordLength) {
-                this.tempList.add(aList.get(count));
+                tempList.add(aList.get(count));
             }
         }
 
@@ -182,30 +184,5 @@ public class Word {
 
     private void setURL(URL url) {
         this.url = url;
-    }
-
-    /**
-     * Shuffle the letters of the word and then rebuild into a new string
-     *
-     * @return          The shuffled word
-     */
-    public List<Character> scrambleWord() {
-        if (this.theWord == null || this.theWord.isEmpty()) {
-            return Collections.emptyList();
-        }
-
-        List<Character> wordAsArray = new ArrayList<>();
-        for(char letter :  this.theWord.toCharArray())
-            wordAsArray.add(letter);
-        Collections.shuffle(wordAsArray);
-
-        StringBuilder scrambledWord = new StringBuilder();
-        for(char letter : wordAsArray)
-            scrambledWord.append(letter);
-
-        if (this.theWord.equals(scrambledWord.toString())) {
-            return scrambleWord();
-        }
-        return wordAsArray;
     }
 }

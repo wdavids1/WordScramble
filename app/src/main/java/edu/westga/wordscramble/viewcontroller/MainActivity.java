@@ -1,4 +1,4 @@
-package edu.westga.wordscramble;
+package edu.westga.wordscramble.viewcontroller;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -6,12 +6,16 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
-import edu.westga.wordscramble.controller.Controller;
+import edu.westga.wordscramble.R;
 
 
+/**
+ * Created by Kaleigh on 3/29/2016.
+ *
+ * This class controls Game_Menu UI.
+ */
 public class MainActivity extends AppCompatActivity {
 
     private int numberOfLetters = 0, speedOfGame = 0;
@@ -33,14 +37,18 @@ public class MainActivity extends AppCompatActivity {
         radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
-                Log.d("chk", "id" + checkedId);
+                //http://developer.android.com/reference/android/util/Log.html
+                Log.i("TAG:: chk:", "id" + checkedId);
+                //Sets the value of the number of letters to 5 based on user's selection from the menu.
                 if (checkedId == R.id.radioButton5) {
                     setNumberOfLetters(5);
-                    Log.i("n", "5");
+                    Log.i("TAG:: letters:", "5");
+                //Sets the value of the number of letters to 6 based on user's selection from the menu.
                 } else {
                     setNumberOfLetters(6);
-                    Log.i("n", "6");
+                    Log.i("TAG:: letters:", "6");
                 }
+                checkAllFields();
             }
         });
     }
@@ -53,14 +61,18 @@ public class MainActivity extends AppCompatActivity {
         radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
-                Log.d("chk", "id" + checkedId);
+                //http://developer.android.com/reference/android/util/Log.html
+                Log.i("TAG:: chk:", "id" + checkedId);
+                //Sets the value of the game speed to 60 seconds based on user's selection from the menu.
                 if (checkedId == R.id.radioButton60) {
                     setSpeedOfGame(60);
-                    Log.i("n", "60");
+                    Log.i("TAG:: speed:", "60");
+                //Sets the value of the game speed to 90 seconds based on user's selection from the menu.
                 } else {
                     setSpeedOfGame(90);
-                    Log.i("n", "90");
+                    Log.i("TAG:: speed:", "90");
                 }
+                checkAllFields();
             }
         });
     }
@@ -81,18 +93,19 @@ public class MainActivity extends AppCompatActivity {
     /** -------- Helper Methods ----------**/
 
     /**
-     * Switches the screen from the screen where the user sets game preferences and the game screen.
+     * Switches the screen from the screen where the user sets game preferences to the game screen.
      */
     private void gameScreen() {
-        //Starting a new Intent
+        //Starts a new Intent
         Intent gameActivity = new Intent(getApplicationContext(), GameActivity.class);
 
-        //Sending data to another Activity
+        //Sends data to another Activity
         gameActivity.putExtra("numberOfLetters", this.numberOfLetters);
         gameActivity.putExtra("speedOfGame", this.speedOfGame);
 
-        Log.i("Content ", "Game Menu Layout ");
-        Log.i("n", speedOfGame+ "/" + numberOfLetters);
+        //http://developer.android.com/reference/android/util/Log.html
+        Log.i("Content ", "Game Menu Layout");
+        Log.i("TAG:: speed/letters:", speedOfGame+ "/" + numberOfLetters);
 
         startActivity(gameActivity);
     }
@@ -111,6 +124,16 @@ public class MainActivity extends AppCompatActivity {
      */
     private void setSpeedOfGame(int speedOfGame){
         this.speedOfGame = speedOfGame;
+    }
+
+    /**
+     * Checks that all radio button options are selected before allowing the user to click Launch Game.
+     */
+    private void checkAllFields(){
+        if (this.speedOfGame>0 && this.numberOfLetters >0){
+            Button button = (Button) findViewById(R.id.launchButton);
+            button.setEnabled(true);
+        }
     }
 
 
