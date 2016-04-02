@@ -1,5 +1,6 @@
 package edu.westga.wordscramble.model;
 
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Random;
@@ -13,9 +14,7 @@ public class Word {
     private ArrayList<String> theList = new ArrayList<>();
     private ArrayList<String> previousWords = new ArrayList<>();
     private ArrayList<String> tempList = new ArrayList<>();
-    private int wordLength = 0;
     private Random theRandom = new Random();
-    private URL url;
 
     /**
      * Initializes the list
@@ -72,17 +71,16 @@ public class Word {
      * Uses a random number within the size of the list to return a word
      * Should include both the first and last words of the list
      *
+     * @param wordLength    The length of the word desired
+     *
      * @return A word randomly selected from the list
      */
     public String getWord(int wordLength) {
-        if (wordLength != 0 && this.wordLength != wordLength) {
-            this.makeTempList(wordLength, this.theList);
-        }
+        this.makeTempList(wordLength, this.theList);
 
         if (this.tempList.size() == 0) {
             this.tempList = theList;
         }
-        this.wordLength = wordLength;
 
         String theWord;
 
@@ -107,18 +105,24 @@ public class Word {
      * Uses a random number within the size of the list to return a word
      * Should include both the first and last words of the list
      *
+     * @param wordLength    The length of the word desired
+     * @param remote        Whether the word should be from a remote list,
+     *                      basically it allows us to overload the method
+     *
      * @return A word randomly selected from the list
      */
-    public String getWord(int wordLength, URL url) {
-        if (wordLength != 0 && this.wordLength != wordLength && this.url != url) {
-            ReadWordsFromURL theWordList = new ReadWordsFromURL();
-            this.makeTempList(wordLength, theWordList.getWordListFromURL(url));
-        }
+      public String getWord(int wordLength, Boolean remote){
+          ReadWordsFromURL theWordList = new ReadWordsFromURL();
+
+          try {
+              this.makeTempList(wordLength, theWordList.execute().get());
+          } catch (Exception e) {
+              System.out.println(e.getMessage());
+          }
 
         if (this.tempList.size() == 0) {
-            this.tempList = theList;
+            this.makeTempList(wordLength, theList);
         }
-        this.wordLength = wordLength;
 
         String theWord;
 
@@ -126,7 +130,7 @@ public class Word {
 
         for(int count = 0; count < previousWords.size(); count++) {
             if (previousWords.get(count).equals(theWord)) {
-                return getWord(wordLength);
+                return getWord(wordLength, true);
             }
         }
 
@@ -180,9 +184,5 @@ public class Word {
             }
         }
 
-    }
-
-    private void setURL(URL url) {
-        this.url = url;
     }
 }

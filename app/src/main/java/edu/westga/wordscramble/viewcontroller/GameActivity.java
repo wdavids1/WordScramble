@@ -53,7 +53,7 @@ public class GameActivity extends AppCompatActivity {
         Log.i("TAG:: speed/letters:", this.speedOfGame + "/" + this.numberOfLetters);
 
         //Builds the game.
-        this.newController.startGame(this.numberOfLetters);
+        this.newController.startGame(this.numberOfLetters, true);
         this.buildButtons();
         this.setTimer();
         this.answerButtonClick();
@@ -274,7 +274,7 @@ public class GameActivity extends AppCompatActivity {
             public void onClick(View v) {
                 TextView answerTextView = (TextView)
                         findViewById(R.id.answerText);
-                Toast.makeText(getApplicationContext(), newController.getHint(answerTextView.getText().toString()), Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), newController.getHint(), Toast.LENGTH_SHORT).show();
             }
         });
     }

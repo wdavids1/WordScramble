@@ -5,6 +5,7 @@ import org.junit.Test;
 import java.util.List;
 
 import edu.westga.wordscramble.controller.Controller;
+import edu.westga.wordscramble.model.ReadWordsFromURL;
 
 import static org.junit.Assert.assertEquals;
 
@@ -52,9 +53,14 @@ public class ControllerWhenStartGame {
      */
     @Test
     public void ControllerShouldGetAWordSize5FromURL() {
-        Controller theController = new Controller();
-        theController.startGame(5, null);
-        assertEquals(5, theController.getTheWord().length());
+        try {
+            Controller theController = new Controller();
+
+            theController.startGame(5, null);
+            assertEquals(5, theController.getTheWord().length());
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
     }
 
     /*
@@ -62,9 +68,16 @@ public class ControllerWhenStartGame {
      */
     @Test
     public void ControllerShouldGetAWordSize6FromURL() {
-        Controller theController = new Controller();
-        theController.startGame(6, "");
-        assertEquals(6, theController.getTheWord().length());
+        try {
+            Controller theController = new Controller();
+
+            theController.startGame(6, true);
+            assertEquals(6, theController.getTheWord().length());
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+
+
     }
 
     /**

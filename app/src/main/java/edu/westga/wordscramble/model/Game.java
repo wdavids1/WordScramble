@@ -56,4 +56,23 @@ public class Game {
                 && theWord.equalsIgnoreCase(suggestedSolution);
     }
 
+    /**
+     * Provides a hint for the word. Gives the player the first and last letters.
+     *
+     * @param theWord   The word the player is working to decipher.
+     * @return          The hint
+     */
+    public String getHint(String theWord) {
+        String hint = "Hint: ";
+
+        hint = hint + theWord.substring(0,1);
+
+        for (int i=0; i < theWord.length() - 2; i++) {
+            hint = hint + "*";
+        }
+
+        hint = hint + theWord.substring(theWord.length()-1);
+
+        return hint;
+    }
 }
