@@ -71,14 +71,13 @@ public class Controller {
      *                          False otherwise
      */
     public void startGame(int numberOfLetters, Boolean remote) {
-        if (remote) {
+        if (remote == true || remote == null) {
             Word retrievedWord = new Word();
             this.theWord = retrievedWord.getWord(numberOfLetters, true);
         } else {
             Word retrievedWord = new Word();
             this.theWord = retrievedWord.getWord(numberOfLetters);
         }
-
 
         Game theGame = new Game();
         this.theWordScrambled = theGame.scrambleWord(theWord);

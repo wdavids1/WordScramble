@@ -35,6 +35,10 @@ public class ReadWordsFromURL extends AsyncTask<String, Void, ArrayList<String>>
 
     @Override
     protected ArrayList<String> doInBackground(String... params) {
+        return readURL();
+    }
+
+    public ArrayList<String> readURL() {
         try {
             URL url = new URL("http://www-01.sil.org/linguistics/wordlists/english/wordlist/wordsEn.txt");
             URLConnection urlConnection = url.openConnection();
@@ -58,5 +62,4 @@ public class ReadWordsFromURL extends AsyncTask<String, Void, ArrayList<String>>
 
         return theWords;
     }
-
 }

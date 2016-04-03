@@ -24,17 +24,10 @@ public class WordWhenGetWordFromURL {
     @Test
     public void buildWordListFromURL() throws Exception {
 
-        try {
-            ReadWordsFromURL theWords = new ReadWordsFromURL();
-            theWords.execute().get();
-
             Word aWord = new Word();
-            aWord.getWord(5, true);
+            aWord.getWordTestable(5, true);
 
             assertEquals(6919, aWord.theTempListSize());
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-        }
     }
 
     /**
@@ -48,8 +41,8 @@ public class WordWhenGetWordFromURL {
         Boolean noErrors = true;
         int count = 0;
 
-        for (int i=0; i<1000; i++) {
-            aWord.getWord(5);
+        for (int i=0; i<10; i++) {
+            aWord.getWordTestable(5, true);
         }
 
         assertEquals(true, noErrors);

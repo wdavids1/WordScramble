@@ -48,38 +48,6 @@ public class ControllerWhenStartGame {
         assertEquals(6, theController.getTheWord().length());
     }
 
-    /*
-     * Test to check that a word of length 5 is returned
-     */
-    @Test
-    public void ControllerShouldGetAWordSize5FromURL() {
-        try {
-            Controller theController = new Controller();
-
-            theController.startGame(5, null);
-            assertEquals(5, theController.getTheWord().length());
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-        }
-    }
-
-    /*
-     * Test to check that a word of length 5 is returned
-     */
-    @Test
-    public void ControllerShouldGetAWordSize6FromURL() {
-        try {
-            Controller theController = new Controller();
-
-            theController.startGame(6, true);
-            assertEquals(6, theController.getTheWord().length());
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-        }
-
-
-    }
-
     /**
      * Test to verify the original word is not returned when a new game is started
      */

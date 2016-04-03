@@ -26,13 +26,9 @@ public class WhenReadWordsFromURL {
      */
     @Test
     public void readWordsShouldGet109583() {
-        try {
             ReadWordsFromURL theWords = new ReadWordsFromURL();
 
-            assertEquals(109583, theWords.execute().get().size());
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-        }
+            assertEquals(109583, theWords.readURL().size());
     }
 
     /**
@@ -41,17 +37,11 @@ public class WhenReadWordsFromURL {
      */
     @Test
     public void wordRead5LetterWordsShouldGet6919() {
-        try {
             Word aWord = new Word();
 
-            ReadWordsFromURL theWords = new ReadWordsFromURL();
-            theWords.execute().get();
-            aWord.getWord(5, true);
+            aWord.getWordTestable(5, true);
 
             assertEquals(6919, aWord.theTempListSize());
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-        }
     }
 
     /**
@@ -60,16 +50,10 @@ public class WhenReadWordsFromURL {
      */
     @Test
     public void wordRead6LetterWordsShouldGet11492() {
-        try {
             Word aWord = new Word();
 
-            ReadWordsFromURL theWords = new ReadWordsFromURL();
-            theWords.execute().get();
-            aWord.getWord(6, true);
+            aWord.getWordTestable(6, true);
 
             assertEquals(11492, aWord.theTempListSize());
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-        }
     }
 }

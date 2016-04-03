@@ -144,6 +144,51 @@ public class Word {
     }
 
     /**
+     * This is a testable version of the above class since I'm unable to
+     * test the AsyncTask
+     *
+     * Uses a random number within the size of the list to return a word
+     * Should include both the first and last words of the list
+     *
+     * @param wordLength    The length of the word desired
+     * @param remote        Whether the word should be from a remote list,
+     *                      basically it allows us to overload the method
+     *
+     * @return A word randomly selected from the list
+     */
+    public String getWordTestable(int wordLength, Boolean remote){
+        ReadWordsFromURL theWordList = new ReadWordsFromURL();
+
+        try {
+            this.makeTempList(wordLength, theWordList.readURL());
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+
+        if (this.tempList.size() == 0) {
+            this.makeTempList(wordLength, theList);
+        }
+
+        String theWord;
+
+        theWord = tempList.get(theRandom.nextInt(tempList.size()));
+
+        for(int count = 0; count < previousWords.size(); count++) {
+            if (previousWords.get(count).equals(theWord)) {
+                return getWord(wordLength, true);
+            }
+        }
+
+        previousWords.add(theWord);
+
+        if (previousWords.size() > 5) {
+            previousWords.remove(0);
+        }
+
+        return theWord;
+    }
+
+    /**
      * Helper class to populate the list of words
      */
     private void makeTheList() {
