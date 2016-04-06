@@ -16,8 +16,6 @@ public class Controller {
     private String theWord;
     private List<Character> theWordScrambled;
     private Game theGame;
-    private URL url;
-    private final String DEFAULTURL = "http://www-01.sil.org/linguistics/wordlists/english/wordlist/wordsEn.txt";
 
     /**
      * Initialize the controller
@@ -69,23 +67,17 @@ public class Controller {
      *
      * @param numberOfLetters   The number of letters the word should have
      *                          uses the default list if value != 5 || 6
-     * @param url               The url to get the list from
-     *                          if empty or null uses default
-     *                          for other errors starts the game without URL data
+     * @param remote            True if you want to use remote source
+     *                          False otherwise
      */
-    public void startGame(int numberOfLetters, String url) {
-        if ((url == null) || url.isEmpty()) {
-            url = DEFAULTURL;
+    public void startGame(int numberOfLetters, Boolean remote) {
+        if (remote == true || remote == null) {
+            Word retrievedWord = new Word();
+            this.theWord = retrievedWord.getWord(numberOfLetters, true);
+        } else {
+            Word retrievedWord = new Word();
+            this.theWord = retrievedWord.getWord(numberOfLetters);
         }
-
-        try {
-            this.url = new URL(url);
-        } catch (MalformedURLException e) {
-            startGame(numberOfLetters);
-        }
-
-        Word retrievedWord = new Word();
-        this.theWord = retrievedWord.getWord(numberOfLetters, this.url);
 
         Game theGame = new Game();
         this.theWordScrambled = theGame.scrambleWord(theWord);
@@ -122,16 +114,18 @@ public class Controller {
     public List<Character> getTheWordScrambled() {
         return this.theWordScrambled;
     }
-    
-    
+
+
     /***************************************** ADDED CODE ***************************************/
 
     /**
-     *
+     * This will get the hint for the word
      * @return A hint
      */
-    public String getHint(String userInput){
-        return "This is an Android Toast Message";
-    }
+    public String getHint(){ return this.theGame.getHint(this.theWord); }
+
+    public Game getTheGame(){ return this.theGame; }
+
+    public void setTheWordScrambled(List<Character> theWordScrambled){ this.theWordScrambled  = theWordScrambled; }
 
 }

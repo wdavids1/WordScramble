@@ -5,6 +5,7 @@ import org.junit.Test;
 import java.net.MalformedURLException;
 import java.net.URL;
 
+import edu.westga.wordscramble.model.ReadWordsFromURL;
 import edu.westga.wordscramble.model.Word;
 
 import static org.junit.Assert.assertEquals;
@@ -23,35 +24,10 @@ public class WordWhenGetWordFromURL {
     @Test
     public void buildWordListFromURL() throws Exception {
 
-        try {
-            URL url = new URL("http://www-01.sil.org/linguistics/wordlists/english/wordlist/wordsEn.txt");
-
             Word aWord = new Word();
-            aWord.getWord(5, url);
+            aWord.getWordTestable(5, true);
 
             assertEquals(6919, aWord.theTempListSize());
-        } catch (MalformedURLException e) {
-            System.out.println("Malformed URL: " + e.getMessage());
-        }
-    }
-
-    /**
-     * Test to verify that the list is filled by the
-     * default list when a bad URL is provided
-     */
-    @Test
-    public void readWordsShouldGet24WithBadURL() {
-
-        try {
-            URL url = new URL("http://www-01.sil.org/linguistics/wordlists/english/wordlist/wordsEn.tx");
-
-            Word aWord = new Word();
-            aWord.getWord(5, url);
-
-            assertEquals(24, aWord.theTempListSize());
-        } catch (MalformedURLException e) {
-            System.out.println("Malformed URL: " + e.getMessage());
-        }
     }
 
     /**
@@ -64,14 +40,9 @@ public class WordWhenGetWordFromURL {
         Word aWord = new Word();
         Boolean noErrors = true;
         int count = 0;
-        URL url = new URL("http://www-01.sil.org/linguistics/wordlists/english/wordlist/wordsEn.txt");
 
-        try {
-            for (int i=0; i<1000; i++) {
-                aWord.getWord(5, url);
-            }
-        } catch (Exception e) {
-            noErrors = false;
+        for (int i=0; i<10; i++) {
+            aWord.getWordTestable(5, true);
         }
 
         assertEquals(true, noErrors);
