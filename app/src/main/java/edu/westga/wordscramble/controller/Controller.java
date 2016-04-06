@@ -114,16 +114,24 @@ public class Controller {
     public List<Character> getTheWordScrambled() {
         return this.theWordScrambled;
     }
-    
-    
+
+
     /***************************************** ADDED CODE ***************************************/
 
     /**
      * This will get the hint for the word
      * @return A hint
      */
+<<<<<<< HEAD
     public String getHint(){
         return this.theGame.getHint(this.theWord);
     }
+=======
+    public String getHint(){ return this.theGame.getHint(this.theWord); }
+
+    public Game getTheGame(){ return this.theGame; }
+
+    public void setTheWordScrambled(List<Character> theWordScrambled){ this.theWordScrambled  = theWordScrambled; }
+>>>>>>> refs/remotes/origin/Clean-Start
 
 }

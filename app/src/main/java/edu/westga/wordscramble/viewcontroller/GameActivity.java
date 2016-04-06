@@ -1,6 +1,7 @@
 package edu.westga.wordscramble.viewcontroller;
 
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.CountDownTimer;
@@ -16,6 +17,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.Serializable;
 import java.util.List;
 
 import edu.westga.wordscramble.R;
@@ -25,15 +27,16 @@ import edu.westga.wordscramble.model.Game;
 
 /**
  * Created by Kaleigh on 3/29/2016.
- *
+ * <p>
  * This class controls Game_Activity UI.
  */
 public class GameActivity extends AppCompatActivity {
 
     private Controller newController = new Controller();
     private List<Character> WordScrambleList;
+    private String theWord;
     private TextView resultTextView;
-    private int speedOfGame = 0, numberOfLetters = 0 ;
+    private int speedOfGame = 0, numberOfLetters = 0;
     private CountDownTimer theTimer;
 
 
@@ -43,10 +46,11 @@ public class GameActivity extends AppCompatActivity {
         setContentView(R.layout.game_main);
 
         //http://developer.android.com/reference/android/os/Bundle.html
-        Bundle bundle=getIntent().getExtras();
+        Bundle bundle = getIntent().getExtras();
 
         this.speedOfGame = bundle.getInt("speedOfGame");
         this.numberOfLetters = bundle.getInt("numberOfLetters");
+
 
         //http://developer.android.com/reference/android/util/Log.html
         Log.i("Content ", "Game Main Layout ");
@@ -54,29 +58,56 @@ public class GameActivity extends AppCompatActivity {
 
         //Builds the game.
         this.newController.startGame(this.numberOfLetters, true);
+<<<<<<< HEAD
         this.buildButtons();
+=======
+        if (savedInstanceState == null) {
+            WordScrambleList = newController.getTheWordScrambled();
+        } else {
+            this.WordScrambleList = this.newController.getTheGame().scrambleWord(savedInstanceState.getString("Scrambled"));
+            this.newController.setTheWord(savedInstanceState.getString("Word"));
+            this.newController.setTheWordScrambled(this.WordScrambleList);
+        }
+        this.theWord = this.newController.getTheWord();
+>>>>>>> refs/remotes/origin/Clean-Start
         this.setTimer();
+        this.resultTextView = (TextView)
+                findViewById(R.id.resultText);
+        this.resultTextView.setText("");
+        this.buildButtons();
         this.answerButtonClick();
         this.resetButtonClick();
         this.hintButtonClick();
-        this.WordScrambleList = this.newController.getTheWordScrambled();
-        this.resultTextView =(TextView)
-                findViewById(R.id.resultText) ;
-        this.resultTextView.setText("");
     }
 
     @Override
-    protected void onStart(){
+    protected void onStart() {
         super.onStart();
         this.runTimer(this.speedOfGame);
     }
 
+    @Override
+    public void onSaveInstanceState(Bundle savedInstanceState) {
+        super.onSaveInstanceState(savedInstanceState);
+        String tempWordScrambleList = "";
+        for(Character current :this.WordScrambleList){
+            tempWordScrambleList += current;
+        }
+        savedInstanceState.putString("Scrambled", tempWordScrambleList);
+        savedInstanceState.putString("Word", this.theWord);
+    }
+
+    @Override
+    public void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+        this.reset();
+    }
     /** -------- Helper Methods ----------**/
 
     /**
-     *  Sets the timer.
+     * Sets the timer.
      */
-    private void setTimer(){
+    private void setTimer() {
         TextView timerTextView = (TextView)
                 findViewById(R.id.timerTextView);
         findViewById(R.id.timerTextView);
@@ -84,13 +115,13 @@ public class GameActivity extends AppCompatActivity {
     }
 
     /**
-     *  Runs the timer.
+     * Runs the timer.
      */
-    private void runTimer(int time){
+    private void runTimer(int time) {
         final TextView timerTextView = (TextView)
                 findViewById(R.id.timerTextView);
         findViewById(R.id.timerTextView);
-        time = time*1000;
+        time = time * 1000;
         this.theTimer = new CountDownTimer(time, 1000) {
 
             public void onTick(long millisUntilFinished) {
@@ -106,15 +137,14 @@ public class GameActivity extends AppCompatActivity {
     }
 
     /**
-     *  Builds the buttons for the letters of the word.
+     * Builds the buttons for the letters of the word.
      */
-    private void buildButtons(){
-        WordScrambleList = newController.getTheWordScrambled();
-        LinearLayout topButton_layout = (LinearLayout)findViewById(R.id.topButton_layout);
-        LinearLayout bottomButton_layout = (LinearLayout)findViewById(R.id.bottomButton_layout);
+    private void buildButtons() {
+        LinearLayout topButton_layout = (LinearLayout) findViewById(R.id.topButton_layout);
+        LinearLayout bottomButton_layout = (LinearLayout) findViewById(R.id.bottomButton_layout);
         int count = this.numberOfLetters;
-        for(Character current :WordScrambleList){
-            if (count >= 3 ) {
+        for (Character current : WordScrambleList) {
+            if (count >= 4) {
                 this.letterButtonClick(count, current.toString(), bottomButton_layout);
             } else {
                 this.letterButtonClick(count, current.toString(), topButton_layout);
@@ -125,6 +155,7 @@ public class GameActivity extends AppCompatActivity {
 
     /**
      * Adds the buttons and listeners to for the letters of the scrambled word
+     *
      * @param number the Index of the Button / position of the letter of the scrambled word.
      * @param letter the letter of the scrambled word.
      * @param layout the layout to add the button to.
@@ -138,7 +169,7 @@ public class GameActivity extends AppCompatActivity {
                 LinearLayout.LayoutParams.WRAP_CONTENT,
                 LinearLayout.LayoutParams.WRAP_CONTENT
         );
-        params.setMargins(5,5,5,5);
+        params.setMargins(5, 5, 5, 5);
         btn.setLayoutParams(params);
         Drawable d = ResourcesCompat.getDrawable(getResources(), R.drawable.roundedbutton, null);
         btn.setBackground(d);
@@ -172,22 +203,22 @@ public class GameActivity extends AppCompatActivity {
     }
 
     /**
-     *  Checks the solution, provides feedback to the user.
+     * Checks the solution, provides feedback to the user.
      */
-    private void checkSolution(){
+    private void checkSolution() {
         TextView answerTextView = (TextView)
                 findViewById(R.id.answerText);
-        if(this.newController.checkSolution(answerTextView.getText().toString())){
+        if (this.newController.checkSolution(answerTextView.getText().toString())) {
             this.resultTextView.setText("Correct!");
             this.theTimer.cancel();
             gameOver();
-        }else{
+        } else {
             this.resultTextView.setText("Sorry, try again!");
         }
     }
 
     /**
-     *  OnClick listener for the Reset Button.
+     * OnClick listener for the Reset Button.
      */
     private void resetButtonClick() {
         Button button = (Button) findViewById(R.id.resetButton);
@@ -200,15 +231,15 @@ public class GameActivity extends AppCompatActivity {
     }
 
     /**
-     *  Resets the text view.
+     * Resets the text view.
      */
-    private void reset(){
+    private void reset() {
         this.resultTextView.setText("");
         TextView answerTextView = (TextView)
                 findViewById(R.id.answerText);
         answerTextView.setText("");
         answerTextView.setEnabled(true);
-        for(int i = this.numberOfLetters ; i>=1; i--){
+        for (int i = this.numberOfLetters; i >= 1; i--) {
             //http://developer.android.com/reference/android/util/Log.html
             Log.i("TAG", "The button is" + i);
             Button btn = (Button) findViewById(i);
@@ -217,9 +248,9 @@ public class GameActivity extends AppCompatActivity {
     }
 
     /**
-     *  Ends the game.
+     * Ends the game.
      */
-    private void gameOver(){
+    private void gameOver() {
         TextView answerTextView = (TextView)
                 findViewById(R.id.answerText);
 
@@ -227,13 +258,13 @@ public class GameActivity extends AppCompatActivity {
         answerTextView.setEnabled(false);
 
         //Greys the buttons out.
-        for(int i=numberOfLetters;i>=1; i--){
+        for (int i = numberOfLetters; i >= 1; i--) {
             Button btn = (Button) findViewById(i);
             btn.setEnabled(false);
         }
 
         //Resets the view to "Start Over"
-        LinearLayout submit_layout = (LinearLayout)findViewById(R.id.submit_layout);
+        LinearLayout submit_layout = (LinearLayout) findViewById(R.id.submit_layout);
         Button answerButton = (Button) findViewById(R.id.answerButton);
         Button resetButton = (Button) findViewById(R.id.resetButton);
         submit_layout.removeView(answerButton);
@@ -245,7 +276,7 @@ public class GameActivity extends AppCompatActivity {
      * Sends the user back to the Game Menu Screen.
      */
     private void startOverButtonClick() {
-        LinearLayout submit_layout = (LinearLayout)findViewById(R.id.submit_layout);
+        LinearLayout submit_layout = (LinearLayout) findViewById(R.id.submit_layout);
         Button btn = new Button(this);
         btn.setId(000);
         btn.setTextSize(26);
@@ -272,9 +303,15 @@ public class GameActivity extends AppCompatActivity {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+<<<<<<< HEAD
                 TextView answerTextView = (TextView)
                         findViewById(R.id.answerText);
                 Toast.makeText(getApplicationContext(), newController.getHint(), Toast.LENGTH_SHORT).show();
+=======
+                if(theWord != null) {
+                    Toast.makeText(getApplicationContext(), newController.getHint(), Toast.LENGTH_SHORT).show();
+                }
+>>>>>>> refs/remotes/origin/Clean-Start
             }
         });
     }
