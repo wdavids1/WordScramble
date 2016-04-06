@@ -111,14 +111,14 @@ public class Word {
      *
      * @return A word randomly selected from the list
      */
-      public String getWord(int wordLength, Boolean remote){
-          ReadWordsFromURL theWordList = new ReadWordsFromURL();
+    public String getWord(int wordLength, Boolean remote){
+        ReadWordsFromURL theWordList = new ReadWordsFromURL();
 
-          try {
-              this.makeTempList(wordLength, theWordList.execute().get());
-          } catch (Exception e) {
-              System.out.println(e.getMessage());
-          }
+        try {
+            this.makeTempList(wordLength, theWordList.execute().get());
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
 
         if (this.tempList.size() == 0) {
             this.makeTempList(wordLength, theList);

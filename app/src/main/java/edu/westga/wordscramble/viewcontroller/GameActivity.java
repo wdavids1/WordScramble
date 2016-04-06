@@ -58,9 +58,6 @@ public class GameActivity extends AppCompatActivity {
 
         //Builds the game.
         this.newController.startGame(this.numberOfLetters, true);
-<<<<<<< HEAD
-        this.buildButtons();
-=======
         if (savedInstanceState == null) {
             WordScrambleList = newController.getTheWordScrambled();
         } else {
@@ -69,7 +66,6 @@ public class GameActivity extends AppCompatActivity {
             this.newController.setTheWordScrambled(this.WordScrambleList);
         }
         this.theWord = this.newController.getTheWord();
->>>>>>> refs/remotes/origin/Clean-Start
         this.setTimer();
         this.resultTextView = (TextView)
                 findViewById(R.id.resultText);
@@ -303,15 +299,9 @@ public class GameActivity extends AppCompatActivity {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-<<<<<<< HEAD
-                TextView answerTextView = (TextView)
-                        findViewById(R.id.answerText);
-                Toast.makeText(getApplicationContext(), newController.getHint(), Toast.LENGTH_SHORT).show();
-=======
                 if(theWord != null) {
                     Toast.makeText(getApplicationContext(), newController.getHint(), Toast.LENGTH_SHORT).show();
                 }
->>>>>>> refs/remotes/origin/Clean-Start
             }
         });
     }

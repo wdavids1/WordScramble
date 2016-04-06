@@ -1,4 +1,4 @@
-package edu.westga.wordscramble.Tests;
+package edu.westga.wordscramble;
 
 import android.app.Application;
 import android.test.ApplicationTestCase;
